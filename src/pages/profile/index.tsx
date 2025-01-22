@@ -1,11 +1,14 @@
 import React from "react"
+import Layout from "@/components/layout";
 
 interface IProfileProps {
 }
 
 const Profile: React.FC<IProfileProps> = ({}) => {
   return (
-  <div>Profile</div>
+      <Layout>
+        <div>Profile</div>
+      </Layout>
   )
   }
 
