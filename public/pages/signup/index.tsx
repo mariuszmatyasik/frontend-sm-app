@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { useUserAuth } from "@/context/userAuthContext";
 import image1 from "@/assets/images/image1.jpg";

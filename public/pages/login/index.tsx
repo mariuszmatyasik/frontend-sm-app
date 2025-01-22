@@ -7,29 +7,30 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { useUserAuth } from "@/context/userAuthContext";
+import { UserLogIn } from "@/types";
 import image1 from "@/assets/images/image1.jpg";
 import image2 from "@/assets/images/image2.jpg";
 import image3 from "@/assets/images/image3.jpg";
 import image4 from "@/assets/images/image4.jpg";
-import { UserSignIn } from "@/types";
 import { Label } from "@radix-ui/react-label";
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const initialValue: UserSignIn = {
+interface ILoginProps {}
+const initialValue: UserLogIn = {
   email: "",
   password: "",
-  confirmPassword: "",
 };
 
-interface ISignupProps {}
-
-const Signup: React.FunctionComponent<ISignupProps> = () => {
-  const { googleSignIn, signUp } = useUserAuth();
+const Login: React.FunctionComponent<ILoginProps> = (props) => {
+  const { googleSignIn, logIn } = useUserAuth();
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = React.useState<UserSignIn>(initialValue);
+  const [userLogInInfo, setuserLogInInfo] =
+    React.useState<UserLogIn>(initialValue);
+
   const handleGoogleSignIn = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     try {
@@ -39,11 +40,12 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
       console.log("Error : ", error);
     }
   };
+
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log("The user info is : ", userInfo);
-      await signUp(userInfo.email, userInfo.password);
+      console.log("The user info is : ", userLogInInfo);
+      await logIn(userLogInInfo.email, userLogInInfo.password);
       navigate("/");
     } catch (error) {
       console.log("Error : ", error);
@@ -107,9 +109,12 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
                       id="email"
                       type="email"
                       placeholder="dipesh@example.com"
-                      value={userInfo.email}
+                      value={userLogInInfo.email}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setUserInfo({ ...userInfo, email: e.target.value })
+                        setuserLogInInfo({
+                          ...userLogInInfo,
+                          email: e.target.value,
+                        })
                       }
                     />
                   </div>
@@ -119,23 +124,11 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
                       id="password"
                       type="password"
                       placeholder="Password"
-                      value={userInfo.password}
+                      value={userLogInInfo.password}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setUserInfo({ ...userInfo, password: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="confirmpassword">Confirm password</Label>
-                    <Input
-                      id="confirmpassword"
-                      type="password"
-                      placeholder="Confirm password"
-                      value={userInfo.confirmPassword}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setUserInfo({
-                          ...userInfo,
-                          confirmPassword: e.target.value,
+                        setuserLogInInfo({
+                          ...userLogInInfo,
+                          password: e.target.value,
                         })
                       }
                     />
@@ -143,10 +136,10 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
                 </CardContent>
                 <CardFooter className="flex flex-col">
                   <Button className="w-full" type="submit">
-                    Sign Up
+                    Login
                   </Button>
                   <p className="mt-3 text-sm text-center">
-                    Already have an account ? <Link to="/login">Login</Link>
+                    Don't have an account ? <Link to="/signup">Sign up</Link>
                   </p>
                 </CardFooter>
               </form>
@@ -158,4 +151,4 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
   );
 };
 
-export default Signup;
+export default Login;
