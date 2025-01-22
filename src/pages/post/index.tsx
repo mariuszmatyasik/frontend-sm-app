@@ -1,10 +1,15 @@
 import React from "react"
+import Layout from "@/components/layout";
 
 interface ICreatePostProps {
 }
 
 const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
-  return <div>Create post</div>;
+  return (
+    <Layout>
+      <div>Create post</div>
+    </Layout>
+  )
 };
 
   export default CreatePost;
