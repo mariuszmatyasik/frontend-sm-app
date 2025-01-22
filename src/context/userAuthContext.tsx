@@ -17,16 +17,16 @@ interface IUserAuthProviderProps {
 type AuthContextData = {
     user: User | null;
     login: typeof login;
-    signup: typeof signup;
+    signUp: typeof signUp;
     logout: typeof logout;
-    googleSignin: typeof googleSignin;
+    googleSignIn: typeof googleSignIn;
 };
 
 const login = (email: string, password: string) => {
     return signInWithEmailAndPassword(auth, email, password);
 }
 
-const signup = (email: string, password: string) => {
+const signUp = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
 }
 
@@ -34,7 +34,7 @@ const logout = () => {
     signOut(auth);
 };
 
-const googleSignin = () => {
+const googleSignIn = () => {
     const googleAuthProvider = new GoogleAuthProvider();
     return signInWithPopup(auth, googleAuthProvider);
 }
@@ -42,9 +42,9 @@ const googleSignin = () => {
 export const userAuthContext = createContext<AuthContextData>({
     user: null,
     login,
-    signup,
+    signUp,
     logout,
-    googleSignin,
+    googleSignIn,
 });
 
 export const UserAuthProvider: React.FC<IUserAuthProviderProps> = ({ children }) => {
@@ -65,9 +65,9 @@ export const UserAuthProvider: React.FC<IUserAuthProviderProps> = ({ children })
     const value: AuthContextData = {
         user,
         login,
-        signup,
+        signUp,
         logout,
-        googleSignin,
+        googleSignIn,
     }
     return(
         <userAuthContext.Provider value={value}>{children}</userAuthContext.Provider>
