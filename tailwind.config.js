@@ -61,8 +61,15 @@ module.exports = {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
-  		}
-  	}
+  		},
+		animation: {
+			"accordion-down": "accordion-down 0.2s ease-out",
+			"according-up": "according-up 0.2s ease-out", 
+		},
+		display: ["group-hover"],
+
+  	},
   },
+
   plugins: [require("tailwindcss-animate")],
 }
