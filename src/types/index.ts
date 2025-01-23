@@ -1,3 +1,4 @@
+import {OutputFileEntry} from "@uploadcare/react-uploader";
 
 
 export interface UserLogIn {
@@ -10,7 +11,9 @@ export interface UserSignIn {
   confirmPassword: string;
 }
 
-
+export interface FileEntry {
+  files: OutputFileEntry[];
+}
 
 export interface Post {
   caption: string;
