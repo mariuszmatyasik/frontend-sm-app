@@ -3,10 +3,25 @@ import { Input } from "@/components/ui/input";
 import * as React from "react";
 import Stories from '@/components/stories';
 import { Search} from "lucide-react";
+import { DocumentResponse } from "@/types";
+
+
 
 interface IHomeProps {}
 
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
+  const { user } = useUserAuth();
+  const [data, setData]= React.useState<DocumentResponse[]>([]);
+  const getAllPost = async() => {
+    const response: DocumentResponse[] = await getPosts() || [];
+      console.log("All post are : ", response);
+      setData(response);
+  };
+  React.useEffect(() => {
+    if (user != null) {
+      getAllPost();
+    }
+  }, []);
   return (
     <Layout>
       
