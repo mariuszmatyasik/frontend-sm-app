@@ -1,15 +1,14 @@
-import React from "react"
 import Layout from "@/components/layout";
+import * as React from "react";
 
-interface IProfileProps {
-}
+interface IProfileProps {}
 
-const Profile: React.FC<IProfileProps> = ({}) => {
+const Profile: React.FunctionComponent<IProfileProps> = () => {
   return (
-      <Layout>
-        <div>Profile</div>
-      </Layout>
-  )
-  }
+    <Layout>
+      <div>Profile</div>
+    </Layout>
+  );
+};
 
-  export default Profile;
+export default Profile;

@@ -1,15 +1,14 @@
-import React from "react"
 import Layout from "@/components/layout";
+import * as React from "react";
 
-interface IHomeProps {
-}
+interface IHomeProps {}
 
-const Home: React.FC<IHomeProps> = ({}) => {
+const Home: React.FunctionComponent<IHomeProps> = (props) => {
   return (
     <Layout>
       <div>Home</div>
     </Layout>
-  )
-  }
-  
-  export default Home;
+  );
+};
+
+export default Home;
