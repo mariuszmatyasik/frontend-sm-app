@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import * as LR from "@uploadcare/blocks";
 import { OutputFileEntry } from "@uploadcare/blocks";
-import { FileUploaderRegular } from '@uploadcare/react-uploader';
-import '@uploadcare/react-uploader/core.css';
+import blocksStyles from "@uploadcare/blocks/web/lr-file-uploader-regular.min.css?url";
 import { FileEntry } from "@/types";
 
-
+LR.registerBlocks(LR);
 
 interface IFileUploaderProps {
   fileEntry: FileEntry;
@@ -63,13 +62,21 @@ const FileUploader: React.FunctionComponent<IFileUploaderProps> = ({
 
   return (
     <div>
-     <FileUploaderRegular
-         sourceList="local, url, camera, dropbox"
-         classNameUploader="uc-light"
-         pubkey="f7a7afe1c093cb1fd188"
-      />
+      <lr-config
+        ctx-name="Frontend-sm-app"
+        pubkey="f7a7afe1c093cb1fd188"
+        multiple={true}
+        confirmUpload={false}
+        removeCopyright={true}
+        imgOnly={true}
+      ></lr-config>
 
-      <lr-upload-ctx-provider ctx-name="my-uploader" ref={ctxProviderRef} />
+      <lr-file-uploader-regular
+        ctx-name="Frontend-sm-app"
+        css-src={blocksStyles}
+      ></lr-file-uploader-regular>
+
+      <lr-upload-ctx-provider ctx-name="Frontend-sm-app" ref={ctxProviderRef} />
 
       <div className="grid grid-cols-2 gap-4 mt-8">
         {fileEntry.files.map((file) => (

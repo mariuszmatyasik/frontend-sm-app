@@ -1,5 +1,4 @@
-import {OutputFileEntry} from "@uploadcare/react-uploader";
-
+import { OutputFileEntry } from "@uploadcare/blocks";
 
 export interface UserLogIn {
   email: string;
