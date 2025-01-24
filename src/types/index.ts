@@ -40,7 +40,7 @@ export interface DocumentResponse {
   userId?: string;
   username?: string;
   photoURL?: string;
-
+  comments?: string[];
 }
 
 export interface ProfileInfo {

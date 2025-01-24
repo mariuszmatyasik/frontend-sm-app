@@ -16,7 +16,8 @@ import {
 const COLLECTION_NAME = "posts";
 
 export const createPost = (post: Post) => {
-  return addDoc(collection(db, COLLECTION_NAME), post);
+  const postWithComments = { ...post, comments: [] };
+  return addDoc(collection(db, COLLECTION_NAME), postWithComments);
 };
 
 export const getPosts = async () => {
@@ -66,4 +67,14 @@ export const updateLikesOnPost = (
     likes: likes,
     userlikes: userlikes,
    });
+};
+export const addCommentToPost = async (postId: string, comments: string[]) => {
+  try {
+    const docRef = doc(db, "posts", postId);
+    await updateDoc(docRef, { comments });
+    console.log("Comments updated successfully.");
+  } catch (error) {
+    console.error("Error updating comments: ", error);
+    throw error;
+  }
 };

@@ -4,7 +4,7 @@ import { DocumentResponse } from '@/types';
 import { useUserAuth } from '@/context/userAuthContext';
 import { HeartIcon, MessageCircle } from 'lucide-react';
 import { Card, CardHeader, CardTitle,CardContent,CardFooter, } from '../ui/card';
-import { updateLikesOnPost, } from "@/repository/post.service.ts";
+import { updateLikesOnPost,addCommentToPost } from "@/repository/post.service.ts";
 import { cn } from "@/lib/utils"
 
 
@@ -37,7 +37,24 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
         data.userlikes!, 
         isVal ? likesInfo.likes +1 : likesInfo.likes -1);
     };
+    const [comments, setComments] = React.useState<string[]>(data.comments || []);
+    const [newComment, setNewComment] = React.useState<string>("");
 
+    const addComment = async () => {
+        if (newComment.trim()) {
+          try {
+            const updatedComments = [
+              ...comments,
+              `${user?.displayName || "Guest"}: ${newComment}`,
+            ];
+            setComments(updatedComments);
+            setNewComment("");
+            await addCommentToPost(data.id!, updatedComments);
+          } catch (error) {
+            console.error("Error adding comment: ", error);
+          }
+        }
+      };
     return (
         <Card className="mb-6">
             <CardHeader className="flex flex-col p-3">
@@ -62,6 +79,28 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
                 <div className="w-full text-sm">
                 <span>{user?.displayName || "Guest_user"}</span> : {data.caption}
                 </div>
+                <div className="w-full text-sm mt-2">
+          {comments.map((comment, index) => (
+            <div key={index} className="mb-2">
+              {comment}
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 flex items-center">
+          <input
+            type="text"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment..."
+            className="border border-gray-300 rounded-md p-2 flex-1"
+          />
+          <button
+            onClick={addComment}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2"
+          >
+            Post
+          </button>
+        </div>
              </CardFooter>
         </Card>
     );
