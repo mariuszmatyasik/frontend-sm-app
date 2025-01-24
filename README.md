@@ -108,10 +108,48 @@ In Linux :
     sudo npm i -g firebase-tools
 Write the password for sudo user (admin)
 
+    firebase login 
+    firbase init
+Choose :
 
+    Firestore: Configure security rules and indexes files for Firestore
+    Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub actions deploys
 
+Press enter in terminal:
 
+choose from options:
+You can choose create new project 
 
+Firestore setup
+
+Press enter to choose default 
+
+What do you want to use as your public directory? 
+
+write:
+
+dist 
+
+Configure as single-page app(rewrite all urls to /index.html) 
+
+write:
+
+yes
+
+Set up automatic builds and deploys with GitHub? 
+
+Write:
+
+no
+
+It should be information that everything is correct and Firebase initialization complete!
+
+Put in terminal:
+
+npm run build
+
+If will be any error on the screen go to the files and correct them 
+One by one.
 
 
 Contributing
