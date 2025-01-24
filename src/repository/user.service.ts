@@ -14,7 +14,7 @@ const COLLECTION_NAME = "users";
 
 export const createUserProfile = async (user: UserProfile) => {
     try {
-        const docRef = addDoc(collection(db, COLLECTION_NAME), user);
+        const docRef = await addDoc(collection(db, COLLECTION_NAME), user);
         return docRef.id;
     } catch(err) {
         console.log(err);

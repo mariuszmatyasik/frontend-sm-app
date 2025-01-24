@@ -5,15 +5,17 @@ import {Textarea} from "@/components/ui/textarea.tsx";
 import FileUploader from "@/components/fileUploader";
 import {Button} from "@/components/ui/button.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
-import {FileEntry, UserProfile} from "@/types";
+import {FileEntry, ProfileInfo, UserProfile} from "@/types";
 import avatar from "@/assets/images/avatar.png"
 import {Input} from "@/components/ui/input.tsx";
 import {createUserProfile, updateUserProfile} from "@/repository/user.service.ts";
+import {useUserAuth} from "@/context/userAuthContext.tsx";
 
 interface IEditProfileProps {
 }
 
 const EditProfile: React.FC<IEditProfileProps> = ({}) => {
+    const {user, updateProfileInfo } = useUserAuth();
     const location = useLocation();
     const navigate = useNavigate();
     const { id, userId, displayName, photoURL, userBio } = location.state;
@@ -32,12 +34,6 @@ const EditProfile: React.FC<IEditProfileProps> = ({}) => {
     });
     console.log("The file entry is: ", fileEntry);
 
-    useEffect(() => {
-        if(fileEntry.files.length > 0){
-            setData({ ...data, photoURL: fileEntry.files[0].cdnUrl || ""});
-        }
-    }, [fileEntry]);
-
     const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(data);
@@ -50,10 +46,27 @@ const EditProfile: React.FC<IEditProfileProps> = ({}) => {
                 const response = await createUserProfile(data);
                 console.log("the created user profile is: ", response);
             }
+            const profileInfo: ProfileInfo = {
+                user: user!,
+                displayName: data.displayName,
+                photoURL: data.photoURL,
+            };
+
+            updateProfileInfo(profileInfo);
+
+            navigate("/profile");
         }catch(err) {
             console.error(err);
         }
+
     }
+
+    useEffect(() => {
+        if(fileEntry.files.length > 0){
+            setData({ ...data, photoURL: fileEntry.files[0].cdnUrl || ""});
+        }
+    }, [fileEntry]);
+
   return (
       <Layout>
           <div className="flex justify-center">
