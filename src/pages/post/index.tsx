@@ -27,7 +27,7 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
     date: new Date(),
   });
 
-
+  const displayName = user?.displayName!
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Uploaded File Entry : ", fileEntry.files);
@@ -45,7 +45,7 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
 
       };
       console.log("The final post is  : ", newPost);
-      await createPost(newPost);
+      await createPost(newPost, displayName);
       navigate("/");
     } else {
       navigate("/login");

@@ -15,9 +15,9 @@ import {
 
 const COLLECTION_NAME = "posts";
 
-export const createPost = (post: Post) => {
-  const postWithComments = { ...post, comments: [] };
-  return addDoc(collection(db, COLLECTION_NAME), postWithComments);
+export const createPost = (post: Post, displayName: string) => {
+  const postWithUser = { ...post, displayName, comments: [] };
+  return addDoc(collection(db, COLLECTION_NAME), postWithUser);
 };
 
 export const getPosts = async () => {
