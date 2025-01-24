@@ -25,6 +25,9 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     }
   }, []);
 
+const Home: React.FunctionComponent<IHomeProps> = () => {
+}
+
   return (
     <Layout>
       <div className="flex flex-col">
