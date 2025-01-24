@@ -33,8 +33,8 @@ We will build a **Social Media App** to post pictures. Learn Firebase Authentica
 
 Before you begin, ensure you have met the following requirements:
 
-- **Node.js:** Version **>= 14.x**
-- **npm:** Version **>= 6.x**
+- **Node.js:** Version **>= 20.x**
+- **npm:** Version **>= 9.x**
 
 You can check your installed versions by running:
 
@@ -61,6 +61,30 @@ VITE_PROJECTID=your_project_id
 VITE_STORAGEBUCKET=your_storage_bucket
 VITE_MESSAGESENDERID=your_messaging_sender_id
 VITE_APPID=your_app_id
+
+Example:
+VITE_APIKEY=AIzaSyD-EXAMPLEKEY12345
+VITE_AUTHDOMAIN=frontend-sm-app.firebaseapp.com
+VITE_PROJECTID=frontend-sm-app
+VITE_STORAGEBUCKET=frontend-sm-app.appspot.com
+VITE_MESSAGESENDERID=1234567890
+VITE_APPID=1:1234567890:web:abcdef123456
+
+
+
+
+Ensure .env is Ignored by Git:
+
+To prevent your sensitive configuration from being pushed to GitHub, ensure that .env is listed in your .gitignore file. If it's not already there, add the following line to .gitignore:
+
+# Environment variables
+.env
+
+
+Ensure you have the necessary Firebase packages installed:
+
+npm install firebase
+
 
 API References:
 https://firebase.google.com/docs/reference
