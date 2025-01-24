@@ -25,9 +25,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     }
   }, []);
 
-const Home: React.FunctionComponent<IHomeProps> = () => {
-}
-
+  const renderPosts = () => {
+    return data.map((item) {
+      return <PostCard data={item} key={item.id} />
+    })
+  }
   return (
     <Layout>
       <div className="flex flex-col">
@@ -50,7 +52,7 @@ const Home: React.FunctionComponent<IHomeProps> = () => {
           <h2 className="mb-5">Feed</h2>
           <div className="w-full flex justify-center">
             <div className="flex flex-col max-w-sm rounded-sm overflow-hidden">
-              {}
+              {data ? renderPosts() : <div>...Loading</div>}
             </div>
           </div>
         </div>
