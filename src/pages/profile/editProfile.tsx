@@ -14,7 +14,7 @@ import {useUserAuth} from "@/context/userAuthContext.tsx";
 interface IEditProfileProps {
 }
 
-const EditProfile: React.FC<IEditProfileProps> = ({}) => {
+const EditProfile: React.FC<IEditProfileProps> = () => {
     const {user, updateProfileInfo } = useUserAuth();
     const location = useLocation();
     const navigate = useNavigate();

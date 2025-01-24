@@ -5,21 +5,21 @@ import { useUserAuth } from '@/context/userAuthContext';
 import { HeartIcon, MessageCircle } from 'lucide-react';
 import { Card, CardHeader, CardTitle,CardContent,CardFooter, } from '../ui/card';
 import { updateLikesOnPost, } from "@/repository/post.service.ts";
-import clsx from 'clsx';
+import { cn } from "@/lib/utils"
 
 
 interface IPostCardProps {
     data: DocumentResponse;
 }
 
-const PostCard: React.FunctionComponent<IPostCardProps> = ({data}) => {
+const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
     const { user } = useUserAuth();
     const [likesInfo, setLikesInfo] = React.useState<{
         likes: number; 
         isLike: boolean;
     }>({
-        likes: data.likes,
-        isLike: data.userlikes.includes(user?.uid) ? true : false,
+        likes: data.likes!,
+        isLike: data.userlikes?.includes(user!.uid) ? true : false,
     });
     const updateLike = async (isVal: boolean) => {
         setLikesInfo({
@@ -43,7 +43,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({data}) => {
             <CardHeader className="flex flex-col p-3">
                 <CardTitle className="text-sm text-center flex justify-start items-center">
                     <span className="mr-2">
-                        <img src={image1} className='w-10 h10 rounded-full border-2 border-slate-800 object-cover' /> /.
+                        <img src={image1} className='w-10 h10 rounded-full border-2 border-slate-800 object-cover' /> 
                     </span>
                     <span>Guest_user</span>
                 </CardTitle>
@@ -53,14 +53,9 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({data}) => {
             </CardContent>
             <CardFooter className="flex flex-col p-3">
                 <div className="flex justify-between w-full mb-3">
-                <HeartIcon
-    className={clsx(
-        "mr-3",
-        "cursor-pointer",
-        likesInfo.isLike ? "fill-red-500" : "fill-none"
-    )}
-    onClick={() => updateLike(!likesInfo.isLike)}
-/>
+                    <HeartIcon className={cn("mr-3", "cursor-pointer", likesInfo.isLike ? "fill-red-500" : "fill-none")}
+                    onClick={() => updateLike(!likesInfo.isLike)}
+                    />
                     <MessageCircle className="mr-3"/>
                 </div>
                 <div className="w-full text-sm">{likesInfo.likes} likes</div>

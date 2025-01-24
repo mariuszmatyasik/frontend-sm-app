@@ -23,7 +23,7 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
     photos: [],
     likes: 0,
     userlikes: [],
-    userId: null,
+    userId: "",
     date: new Date(),
   });
 
