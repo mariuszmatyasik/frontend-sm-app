@@ -54,6 +54,18 @@ Navigate to the Project Directory:
 
 cd frontend-sm-app
 
+Create .env file with needed data.
+VITE_APIKEY=your_api_key
+VITE_AUTHDOMAIN=your_auth_domain
+VITE_PROJECTID=your_project_id
+VITE_STORAGEBUCKET=your_storage_bucket
+VITE_MESSAGESENDERID=your_messaging_sender_id
+VITE_APPID=your_app_id
+
+API References:
+https://firebase.google.com/docs/reference
+
+
 Install Dependencies:
 Using npm:
 npm install
@@ -86,6 +98,22 @@ Add new photo to database. Delete some if not needed anymore.
 Technologies
 The project is built using the following technologies:
 React , Typescript, Firebase Authentication, Firestore Database,
+
+
+Deploy  
+Write in terminal 
+
+    npm i -g firebase-tools
+In Linux : 
+    sudo npm i -g firebase-tools
+Write the password for sudo user (admin)
+
+
+
+
+
+
+
 Contributing
 Contributions are welcome! To contribute to Frontend SM App, please follow these steps:
     1. Fork the Repository
