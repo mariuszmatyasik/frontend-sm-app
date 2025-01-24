@@ -14,6 +14,7 @@ interface ICreatePostProps {}
 const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
   const navigate = useNavigate();
   const { user } = useUserAuth();
+
   const [fileEntry, setFileEntry] = React.useState<FileEntry>({
     files: [],
   });
@@ -25,6 +26,7 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
     userId: null,
     date: new Date(),
   });
+
 
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -77,7 +79,7 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
                 <Label className="mb-4" htmlFor="photo">
                   Photos
                 </Label>
-                <FileUploader fileEntry={fileEntry} onChange={setFileEntry} />
+                <FileUploader fileEntry={fileEntry} onChange={setFileEntry} preview={true}/>
               </div>
               <Button className="mt-8 w-32" type="submit">
                 Post
