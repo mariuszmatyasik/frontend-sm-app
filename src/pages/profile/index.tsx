@@ -63,7 +63,7 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
                         </div>
                     </div>
                     <img
-                        src={`${item.photos[0].cdnUrl}/-/progressive/yes/-/scale_crop/300x300/center/`}
+                        src={`${item.photos![0].cdnUrl}/-/progressive/yes/-/scale_crop/300x300/center/`}
                     />
                 </div>
             );

@@ -3,14 +3,17 @@ import * as React from "react";
 import { Input } from "@/components/ui/input.tsx";
 import { Search } from "lucide-react";
 import Stories from "@/components/stories";
+
+import PostCard from "@/components/postCard";
+
 import { useEffect, useState } from "react";
 import { DocumentResponse } from "@/types";
 import { useUserAuth } from "@/context/userAuthContext.tsx";
 import { getPosts } from "@/repository/post.service.ts";
 
 interface IHomeProps {}
+const Home: React.FunctionComponent<IHomeProps> = () => {
 
-const Home: React.FunctionComponent<IHomeProps> = (props) => {
   const { user } = useUserAuth();
   const [data, setData] = useState<DocumentResponse[]>([]);
   const getAllPost = async () => {
@@ -18,7 +21,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     console.log("All posts: ", response);
     setData(response);
   };
-//  user profile
+
   useEffect(() => {
     if (user != null) {
       getAllPost();
@@ -26,7 +29,9 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
   }, []);
 
   const renderPosts = () => {
-    return data.map((item) {
+
+    return data.map((item) => {
+
       return <PostCard data={item} key={item.id} />
     })
   }
@@ -47,6 +52,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         <div className="mb-5 overflow-y-auto">
           <h2 className="mb-5">Stories</h2>
           <Stories />
+
         </div>
         <div className="mb-5">
           <h2 className="mb-5">Feed</h2>
