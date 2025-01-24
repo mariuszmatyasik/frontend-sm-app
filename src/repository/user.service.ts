@@ -50,3 +50,19 @@ export const updateUserProfile = async (id: string, user: UserProfile) => {
         ...user,
     });
 }
+export const getAllUsers = async (): Promise<UserProfile[]> => {
+    try {
+        const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
+        const users: UserProfile[] = querySnapshot.docs.map((doc) => {
+            const data = doc.data() as Omit<UserProfile, "userId">;
+            return {
+                userId: doc.id, 
+                ...data,
+            };
+        });
+        return users;
+    } catch (err) {
+        console.log(err);
+        throw new Error("Failed to fetch users");
+    }
+};

@@ -40,11 +40,11 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
         ...post,
         userId: user?.uid,
         photos: photoMeta,
-        username: user?.displayName!,
+        username: user.displayName!,
         photoURL: user?.photoURL!,
 
       };
-      console.log("The final posy is  : ", newPost);
+      console.log("The final post is  : ", newPost);
       await createPost(newPost);
       navigate("/");
     } else {
