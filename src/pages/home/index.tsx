@@ -18,7 +18,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     console.log("All posts: ", response);
     setData(response);
   };
-
+//  user profile
   useEffect(() => {
     if (user != null) {
       getAllPost();
