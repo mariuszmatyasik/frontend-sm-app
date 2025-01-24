@@ -51,7 +51,8 @@ export interface ProfileInfo {
 
 export interface UserProfile {
   userId?: string;
-  displayName?: string;
+  displayName: string;
+  email: string;
   photoURL?: string;
   userBio?: string;
 }
