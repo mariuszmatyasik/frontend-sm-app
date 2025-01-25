@@ -16,6 +16,18 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
 
   const navigate = useNavigate();
 
+  const initialUserInfo: ProfileResponse = {
+    id: "",
+    userId: user?.uid,
+    userBio: "Update your profile",
+    photoURL: user?.photoURL ? user.photoURL : "",
+    displayName: user?.displayName ? user.displayName : "Guest user",
+  };
+
+  const [userInfo, setUserInfo] =
+    React.useState<ProfileResponse>(initialUserInfo);
+
+  /*
   const [userInfo, setUserInfo] = React.useState<ProfileResponse>({
     id: "",
     userId: "",
@@ -23,6 +35,7 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
     photoURL: "",
     displayName: "Guest user",
   });
+
 
   React.useEffect(() => {
     if (user && user.uid !== userInfo.userId) {
@@ -37,15 +50,7 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
   }),
     [user];
 
-  /*
-    const initialUserInfo: ProfileResponse = {
-      id: "",
-      userId: user?.uid,
-      userBio: "Update your profile",
-      photoURL: user?.photoURL ? user.photoURL : "",
-      displayName: user?.displayName ? user.displayName : "Guest user",
-    };
-    */
+*/
 
   //console.log("Initial user info: ", initialUserInfo);
 
@@ -56,7 +61,7 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
   const getUserProfileInfo = async (userId: string) => {
     const data: ProfileResponse = (await getUserProfile(userId)) || {};
 
-    if (data) {
+    if (data.displayName) {
       setUserInfo(data);
     }
   };

@@ -27,13 +27,13 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
     date: new Date(),
   });
 
-  const displayName = user?.displayName!
+  const displayName = user?.displayName!;
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Uploaded File Entry : ", fileEntry.files);
     console.log("The create post is : ", post);
     const photoMeta: PhotoMeta[] = fileEntry.files.map((file) => {
-      return { cdnUrl: file.cdnUrl! , uuid: file.uuid! };
+      return { cdnUrl: file.cdnUrl!, uuid: file.uuid! };
     });
     if (user != null) {
       const newPost: Post = {
@@ -42,7 +42,6 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
         photos: photoMeta,
         username: user.displayName!,
         photoURL: user?.photoURL!,
-
       };
       console.log("The final post is  : ", newPost);
       await createPost(newPost, displayName);
@@ -79,7 +78,11 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
                 <Label className="mb-4" htmlFor="photo">
                   Photos
                 </Label>
-                <FileUploader fileEntry={fileEntry} onChange={setFileEntry} preview={true}/>
+                <FileUploader
+                  fileEntry={fileEntry}
+                  onChange={setFileEntry}
+                  preview={true}
+                />
               </div>
               <Button className="mt-8 w-32" type="submit">
                 Post

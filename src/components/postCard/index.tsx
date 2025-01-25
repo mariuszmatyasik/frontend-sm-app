@@ -74,7 +74,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
               className="w-10 h10 rounded-full border-2 border-slate-800 object-cover"
             />
           </span>
-          <span>{user?.displayName || "Guest_user"}</span>
+          <span>{data?.username || "Guest_user"}</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
