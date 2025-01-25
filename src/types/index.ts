@@ -1,5 +1,5 @@
 import { OutputFileEntry } from "@uploadcare/blocks";
-import { User } from "firebase/auth"
+import { User } from "firebase/auth";
 
 export interface UserLogIn {
   email: string;
@@ -52,7 +52,6 @@ export interface ProfileInfo {
 export interface UserProfile {
   userId?: string;
   displayName: string;
-  email: string;
   photoURL?: string;
   userBio?: string;
 }

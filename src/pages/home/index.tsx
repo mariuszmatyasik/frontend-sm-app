@@ -13,9 +13,9 @@ import { getPosts } from "@/repository/post.service.ts";
 
 interface IHomeProps {}
 const Home: React.FunctionComponent<IHomeProps> = () => {
-
   const { user } = useUserAuth();
   const [data, setData] = useState<DocumentResponse[]>([]);
+
   const getAllPost = async () => {
     const response: DocumentResponse[] = (await getPosts()) || [];
     console.log("All posts: ", response);
@@ -29,12 +29,10 @@ const Home: React.FunctionComponent<IHomeProps> = () => {
   }, []);
 
   const renderPosts = () => {
-
     return data.map((item) => {
-
-      return <PostCard data={item} key={item.id} />
-    })
-  }
+      return <PostCard data={item} key={item.id} />;
+    });
+  };
   return (
     <Layout>
       <div className="flex flex-col">
@@ -52,7 +50,6 @@ const Home: React.FunctionComponent<IHomeProps> = () => {
         <div className="mb-5 overflow-y-auto">
           <h2 className="mb-5">Stories</h2>
           <Stories />
-
         </div>
         <div className="mb-5">
           <h2 className="mb-5">Feed</h2>

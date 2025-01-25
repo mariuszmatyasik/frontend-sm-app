@@ -1,5 +1,5 @@
 import { db } from "@/firebaseConfig";
-import { DocumentResponse, Post } from "@/types";
+import { DocumentResponse, Post, ProfileInfo } from "@/types";
 import {
   addDoc,
   collection,
@@ -21,24 +21,24 @@ export const createPost = (post: Post, displayName: string) => {
 };
 
 export const getPosts = async () => {
-  try{
-  const q = query(collection(db, COLLECTION_NAME), orderBy("date", "desc"));
-  const querySnapshot = await getDocs(q);
-  const tempArr: DocumentResponse[] = [];  
-  if (querySnapshot.size > 0) {
-    querySnapshot.forEach((doc) => {
-      const data = doc.data() as Post;
-      const responseObj:DocumentResponse = {
-        id: doc.id,
-        ...data,
-      };
-      tempArr.push(responseObj) 
-    });
-    return tempArr;
-  } else {
-    console.log("No such document");
-  }
-} catch (error)  {
+  try {
+    const q = query(collection(db, COLLECTION_NAME), orderBy("date", "desc"));
+    const querySnapshot = await getDocs(q);
+    const tempArr: DocumentResponse[] = [];
+    if (querySnapshot.size > 0) {
+      querySnapshot.forEach((doc) => {
+        const data = doc.data() as Post;
+        const responseObj: DocumentResponse = {
+          id: doc.id,
+          ...data,
+        };
+        tempArr.push(responseObj);
+      });
+      return tempArr;
+    } else {
+      console.log("No such document");
+    }
+  } catch (error) {
     console.log(error);
   }
 };
@@ -60,13 +60,13 @@ export const deletePost = (id: string) => {
 export const updateLikesOnPost = (
   id: string,
   userlikes: string[],
-  likes: number
-) => { 
+  likes: number,
+) => {
   const docRef = doc(db, COLLECTION_NAME, id);
-  return updateDoc(docRef, { 
+  return updateDoc(docRef, {
     likes: likes,
     userlikes: userlikes,
-   });
+  });
 };
 export const addCommentToPost = async (postId: string, comments: string[]) => {
   try {
@@ -76,5 +76,24 @@ export const addCommentToPost = async (postId: string, comments: string[]) => {
   } catch (error) {
     console.error("Error updating comments: ", error);
     throw error;
+  }
+};
+
+export const updateUserInfoOnPosts = async (profileInfo: ProfileInfo) => {
+  const q = query(
+    collection(db, COLLECTION_NAME),
+    where("userId", "==", profileInfo.user?.uid),
+  );
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.size > 0) {
+    querySnapshot.forEach((document) => {
+      const docRef = doc(db, COLLECTION_NAME, document.id);
+      updateDoc(docRef, {
+        username: profileInfo.displayName,
+        photoURL: profileInfo.photoURL,
+      });
+    });
+  } else {
+    console.log("User have no posts");
   }
 };
