@@ -1,53 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { getAllUsers } from "@/repository/user.service";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ProfileResponse } from "@/types";
+import { useUserAuth } from "@/context/userAuthContext.tsx";
+import avatar from "@/assets/images/avatar.png";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button.tsx";
 
-interface User {
-  userId?: string;
-  displayName?: string;
-  email?: string;
-  photoURL?: string;
-}
-const UsersList: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+interface IUserListProps {}
 
+const UserList: React.FC = () => {
+  const { user } = useUserAuth();
+  const [suggestedUser, setSuggestedUser] = useState<ProfileResponse[]>([]);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-          const userList = await getAllUsers();
-          setUsers(userList);
-          setLoading(false);
-      } catch (err) {
-          setError("Failed to load users.");
-          setLoading(false);
-      }
+  const getSuggestedUsers = async (userId: string) => {
+    const response = (await getAllUsers(userId)) || [];
+    console.log("UserList response: ", response);
+    setSuggestedUser(response);
   };
 
-
-    fetchUsers();
+  useEffect(() => {
+    if (user?.uid != null) {
+      getSuggestedUsers(user?.uid);
+    }
   }, []);
 
-  if (loading) return <p>Loading users...</p>;
-  if (error) return <p>{error}</p>;
+  const renderUsers = () => {
+    return suggestedUser.map((user) => {
+      return (
+        <div className="flex flex-row items-center mb-4 border-gray-400 justify-start">
+          <span className="mr-2">
+            <img
+              src={user.photoURL ? user.photoURL : "avatar"}
+              className="w-10 h-10 rounded-full border-2 border-slate-800 object-cover"
+            />
+          </span>
+          <span className="text-xs">
+            {user?.displayName ? user?.displayName : "Guest user"}
+          </span>
+          <Button className="text-xs p-3 py-2 h-6 bg-slate-900 last-of-type:ml-auto">
+            Follow
+          </Button>
+        </div>
+      );
+    });
+  };
 
   return (
-    <div className="grid grid-cols-1 p-4">
-      {users.map((user) => (
-        <Card key={user.userId} className="shadow-lg">
-          <CardHeader>
-          <CardTitle>{user.displayName.split(' ')[0]?.charAt(0).toUpperCase() + user.displayName?.split(' ')[0]?.slice(1)}</CardTitle>
-          </CardHeader>
-          <CardContent>
-                <p>{user.displayName}</p>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="text-white py-8 px-3">
+      <Link to="/profile">
+        <div className="flex flex-row items-center b order-b pb-4 mb-4 border-gray-400 cursor-pointer">
+          <span className="mr-2">
+            <img
+              src={user?.photoURL ? user?.photoURL : avatar}
+              className="w-10 h-10 rounded-full border-2 border-slate-800 object-cover"
+            />
+          </span>
+          <span className="text-xs">
+            {user?.displayName ? user.displayName : "Guest user"}
+          </span>
+        </div>
+      </Link>
+      <h3 className="text-sm text-slate-300">Suggested friends</h3>
+      <div className="my-4">
+        {suggestedUser.length > 0 ? renderUsers() : ""}
+      </div>
     </div>
   );
 };
 
-
-  export default UsersList;
+export default UserList;
